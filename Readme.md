@@ -2,60 +2,84 @@
 
 ### A From-Scratch Deep Learning Training Framework Built with PyTorch
 
-A modular deep learning framework featuring custom neural network layers, optimizer implementation, and a ResNet-9 architecture for CIFAR-10 image classification. Built to explore the fundamentals of deep learning systems, model architecture design, and training optimization.
+**nanoengine** is a modular deep learning framework built to explore and implement the core components of neural network training. It features custom neural network layers, optimization algorithms, training callbacks, tensor operations, and a ResNet-9 architecture for CIFAR-10 image classification.
 
 ---
 
 ## Overview
 
-**nanoengine** is a custom deep learning implementation developed using PyTorch, focusing on understanding and implementing core components of neural network training rather than relying entirely on high-level abstractions.
+Unlike implementations that rely entirely on high-level PyTorch abstractions, nanoengine focuses on building and understanding the underlying components of a deep learning training pipeline.
 
-The project combines modular layer implementations, a custom AdamW optimizer, residual network architecture, and optimized training techniques to build and evaluate a CIFAR-10 image classifier.
+The framework integrates custom layer implementations, optimizer algorithms, learning rate scheduling, training callbacks, and residual network architecture into a modular codebase.
 
 ## Key Features
 
-* **Custom Layer Architecture:** Modular layer implementations with native PyTorch autograd parameter binding.
-* **Custom AdamW Optimizer:** Implements decoupled weight decay and in-place moment buffer updates.
-* **ResNet-9 Architecture:** A nine-layer residual convolutional neural network with adaptive pooling and multi-stage skip connections.
-* **Learning Rate Scheduling:** Cosine Annealing learning rate schedule.
+* **Custom Neural Network Layers:** Modular implementations of convolutional, linear, activation, and normalization layers.
+* **Custom Optimization Algorithms:** From-scratch AdamW and SGD implementations.
+* **ResNet-9 Architecture:** Residual convolutional neural network with multi-stage skip connections and adaptive pooling.
+* **Tensor Operations:** Custom tensor-related functionality.
+* **Training Engine:** Structured training workflow with modular execution.
+* **Callback System:** Training callbacks, execution management, and tracking.
+* **Learning Rate Scheduling:** Cosine Annealing learning rate scheduling.
 * **Data Augmentation:** Reflection padding and random horizontal flipping.
-* **Performance Evaluation:** Validation accuracy, parameter count, inference latency, and batch throughput measurements.
+* **Testing Suite:** Component-level tests covering layers, optimizers, and sequential operations.
+* **Performance Benchmarking:** Evaluation of validation accuracy, inference latency, and batch throughput.
+
+---
 
 ## Architecture
 
-The framework is organized into three primary components:
+The framework is organized into five major components:
 
-| Component | Implementation         | Description                                    |
-| --------- | ---------------------- | ---------------------------------------------- |
-| Layers    | `src/layers/`          | Custom modular neural network layers           |
-| Optimizer | `src/optim/adamw.py`   | Custom AdamW optimization algorithm            |
-| Model     | `src/models/resnet.py` | ResNet-9 architecture for image classification |
+| Component  | Directory        | Responsibility                                       |
+| ---------- | ---------------- | ---------------------------------------------------- |
+| Callbacks  | `src/callbacks/` | Training execution, callbacks, and tracking          |
+| Engine     | `src/engine/`    | Tensor operations                                    |
+| Layers     | `src/layers/`    | Neural network building blocks                       |
+| Models     | `src/models/`    | Model architectures                                  |
+| Optimizers | `src/optim/`     | Optimization algorithms and learning rate scheduling |
 
-### 1. Custom Neural Network Layers
+### 1. Neural Network Layers
 
-Implemented modular components with native autograd parameter binding.
+Custom modular implementations covering:
 
-* Base layer implementation.
+* Base layer functionality.
 * Convolutional layers.
-* Fused convolution operations.
+* Linear layers.
+* Activation functions.
+* Normalization layers.
+* Container and sequential operations.
 
-### 2. Custom AdamW Optimizer
+### 2. Optimization Algorithms
 
-A custom implementation of AdamW featuring:
+Custom implementations of:
 
-* First-moment estimation.
-* Second-moment estimation.
-* Decoupled weight decay.
-* In-place moment buffer updates.
+* **AdamW:** Adaptive moment estimation with decoupled weight decay.
+* **SGD:** Stochastic Gradient Descent.
+* **Learning Rate Scheduler:** Cosine Annealing.
 
-### 3. ResNet-9
+### 3. ResNet-9 Architecture
 
-A nine-layer residual convolutional neural network featuring:
+A nine-layer residual convolutional neural network designed for CIFAR-10 classification.
 
-* Multi-stage residual connections.
+Key architectural components:
+
 * Convolutional feature extraction.
+* Residual skip connections.
+* Multi-stage feature learning.
 * Adaptive average pooling.
-* CIFAR-10 classification output.
+* Classification output layer.
+
+### 4. Training Engine and Callbacks
+
+A modular training infrastructure featuring:
+
+* Tensor operations.
+* Callback execution.
+* Training workflow management.
+* Experiment and metric tracking.
+
+---
 
 ## Benchmark Results
 
@@ -70,7 +94,9 @@ A nine-layer residual convolutional neural network featuring:
 | Benchmark Batch Size         |             128 |
 | Hardware                     | NVIDIA Tesla T4 |
 
-*Benchmark figures represent the recorded results from the current implementation and evaluation environment.*
+*Results represent measurements from the current implementation and evaluation environment. Performance may vary depending on hardware and benchmarking conditions.*
+
+---
 
 ## Project Structure
 
@@ -78,32 +104,75 @@ A nine-layer residual convolutional neural network featuring:
 nanoengine/
 │
 ├── src/
-│   ├── layers/
+│   ├── callbacks/
+│   │   ├── __init__.py
 │   │   ├── base.py
-│   │   └── conv.py
+│   │   ├── runner.py
+│   │   └── tracking.py
+│   │
+│   ├── engine/
+│   │   ├── __init__.py
+│   │   └── tensor.py
+│   │
+│   ├── layers/
+│   │   ├── __init__.py
+│   │   ├── activations.py
+│   │   ├── base.py
+│   │   ├── containers.py
+│   │   ├── conv.py
+│   │   ├── linear.py
+│   │   └── norm.py
 │   │
 │   ├── models/
+│   │   ├── __init__.py
 │   │   └── resnet.py
 │   │
-│   └── optim/
-│       └── adamw.py
+│   ├── optim/
+│   │   ├── __init__.py
+│   │   ├── adamw.py
+│   │   ├── lr_scheduler.py
+│   │   └── sgd.py
+│   │
+│   └── __init__.py
 │
 ├── scripts/
+│   ├── benchmark.py
+│   ├── download_cifar.py
 │   └── train.py
 │
+├── tests/
+│   ├── __init__.py
+│   ├── test_activations.py
+│   ├── test_conv.py
+│   ├── test_linear.py
+│   ├── test_norm.py
+│   ├── test_optim.py
+│   ├── test_sequential.py
+│   └── test_stage5.py
+│
+├── weights/
+│   └── .gitkeep
+│
+├── confusion_matrix.png
+├── pyproject.toml
 ├── .gitignore
 └── README.md
 ```
 
+---
+
 ## Technology Stack
 
-* **Language:** Python
-* **Deep Learning Framework:** PyTorch
-* **Numerical Computing:** NumPy
-* **Dataset:** CIFAR-10
-* **Model Architecture:** ResNet-9
-* **Optimization:** Custom AdamW
-* **Learning Rate Scheduling:** Cosine Annealing
+| Technology | Purpose                                     |
+| ---------- | ------------------------------------------- |
+| Python     | Core programming language                   |
+| PyTorch    | Deep learning and automatic differentiation |
+| NumPy      | Numerical computing                         |
+| CIFAR-10   | Image classification dataset                |
+| CUDA       | GPU-accelerated training                    |
+| Pytest     | Automated testing                           |
+
+---
 
 ## Getting Started
 
@@ -112,26 +181,32 @@ nanoengine/
 * Python 3.9+
 * PyTorch
 * NumPy
-* CUDA-compatible GPU (recommended for accelerated training)
+* CUDA-compatible GPU (recommended)
 
-### Installation
-
-Clone the repository:
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/nanoengine.git
 cd nanoengine
 ```
 
-Install the required dependencies:
+### 2. Install Dependencies
 
 ```bash
-pip install torch torchvision numpy
+pip install -e .
 ```
 
-### Training
+*Dependencies are managed through `pyproject.toml`.*
 
-Train the ResNet-9 model using the following command:
+### 3. Download the Dataset
+
+```bash
+python scripts/download_cifar.py
+```
+
+### 4. Train the Model
+
+Run the training pipeline with the following configuration:
 
 ```bash
 python scripts/train.py --epochs 20 --batch-size 128 --lr 0.001 --device cuda
@@ -139,38 +214,68 @@ python scripts/train.py --epochs 20 --batch-size 128 --lr 0.001 --device cuda
 
 **Training configuration:**
 
-* `--epochs 20`: Train for 20 epochs.
-* `--batch-size 128`: Process 128 images per batch.
-* `--lr 0.001`: Set the initial learning rate to 0.001.
-* `--device cuda`: Run training on an NVIDIA CUDA-compatible GPU.
+| Argument           | Description                |
+| ------------------ | -------------------------- |
+| `--epochs 20`      | Number of training epochs  |
+| `--batch-size 128` | Images processed per batch |
+| `--lr 0.001`       | Initial learning rate      |
+| `--device cuda`    | GPU-based training         |
 
-For CPU-based training, use:
+For CPU-based training:
 
 ```bash
 python scripts/train.py --epochs 20 --batch-size 128 --lr 0.001 --device cpu
 ```
 
-*Note: Adjust the training configuration and dataset settings in the training script if required.*
+### 5. Run Benchmarks
 
-## Project Objectives
+```bash
+python scripts/benchmark.py
+```
 
-The primary objectives of nanoengine are:
+### 6. Run Tests
 
-* Understand the internal mechanics of deep learning training.
-* Implement neural network components using PyTorch.
-* Develop an optimizer from scratch.
-* Design and train a residual CNN architecture.
-* Evaluate model accuracy and computational performance.
-
-## Future Improvements
-
-* Expand the custom layer library.
-* Implement additional optimization algorithms.
-* Introduce mixed-precision training.
-* Explore distributed training.
-* Improve inference efficiency.
-* Add automated testing and benchmarking.
+```bash
+pytest tests/ -v
+```
 
 ---
 
-**nanoengine** — Exploring the fundamentals of deep learning systems through implementation.
+## Testing
+
+The project includes a dedicated test suite covering:
+
+* Activation functions.
+* Convolutional layers.
+* Linear layers.
+* Normalization layers.
+* Optimization algorithms.
+* Sequential containers.
+* Additional training-stage functionality.
+
+Run the complete test suite:
+
+```bash
+pytest tests/ -v
+```
+
+---
+
+## Future Development
+
+Potential areas of further development include:
+
+* Additional neural network architectures.
+* More optimization algorithms.
+* Mixed-precision training.
+* Distributed training support.
+* Advanced model profiling.
+* Improved memory and computational efficiency.
+
+---
+
+## Project Philosophy
+
+**Understand the internals. Build the components. Measure the results.**
+
+nanoengine explores deep learning from the implementation level, bringing together neural network architecture, optimization, training infrastructure, and performance evaluation in one modular framework.
