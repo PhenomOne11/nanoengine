@@ -279,3 +279,4 @@ Potential areas of further development include:
 **Understand the internals. Build the components. Measure the results.**
 
 nanoengine explores deep learning from the implementation level, bringing together neural network architecture, optimization, training infrastructure, and performance evaluation in one modular framework.
+
