@@ -24,3 +24,9 @@ nanoengine_colab.zip
 # Large Model weights (keep repo lean)
 weights/*.pt
 weights/*.pth
+
+weights/*.pt
+weights/*.pth
+
+weights/*.pt
+weights/*.pth

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nano-torch-engine"
+version = "0.1.0"
+description = "A modular deep learning engine built from scratch"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "pytest>=7.4.0",
+    "matplotlib>=3.7.0"
+]
