@@ -83,6 +83,8 @@ A modular training infrastructure featuring:
 
 ## Benchmark Results
 
+![CIFAR-10 Confusion Matrix](./confusion_matrix.png)
+
 | Metric                       |          Result |
 | ---------------------------- | --------------: |
 | Validation Accuracy          |      **91.85%** |
@@ -279,5 +281,6 @@ Potential areas of further development include:
 **Understand the internals. Build the components. Measure the results.**
 
 nanoengine explores deep learning from the implementation level, bringing together neural network architecture, optimization, training infrastructure, and performance evaluation in one modular framework.
+
 
 
